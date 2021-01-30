@@ -77,7 +77,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <h5 id="total-price">$500</h5>
                     </div>
                 </div>
 
@@ -111,14 +111,14 @@
         </section>
         <script>
             document.getElementById('firstClass-plusBtn').addEventListener('click', function () {
-                handleProductChange(true);
+                handleFirstClassChange(true);
             });
 
             document.getElementById('firstClass-minusBtn').addEventListener('click', function () {
-                handleProductChange(false);
+                handleFirstClassChange(false);
             });
 
-            function handleProductChange(isIncrease) {
+            function handleFirstClassChange(isIncrease) {
                 const firstClassInput = document.getElementById('firstClass-count');
                 const firstClassCount = parseInt(firstClassInput.value);
                 let firstClassNewCount = firstClassCount;
@@ -130,9 +130,9 @@
                     firstClassNewCount = firstClassCount - 1;
                 }
                 firstClassInput.value = firstClassNewCount;
+                calculateTotal();
             }
-        </script>
-         <script>
+        
 
             document.getElementById('economy-plusBtn').addEventListener('click', function () {
                 handleProductChange(true);
@@ -154,9 +154,22 @@
                     economyNewCount = economyCount - 1;
                 }
                 economyInput.value = economyNewCount;
+                calculateTotal();
             }
          
+              function calculateTotal(){
+                const firstClassInput = document.getElementById('firstClass-count');
+                const firstClassCount = parseInt(firstClassInput.value);
 
+                const economyInput = document.getElementById('economy-count');
+                const economyCount = parseInt(economyInput.value);
+
+                const totalPrice = (firstClassCount * 150) + (economyCount * 100);
+                document.getElementById('total-price').innerText =  totalPrice;
+
+
+                  
+              }
 
             // document.getElementById('economy-plusBtn').addEventListener('click', function () {
             //     const economyInput = document.getElementById('economy-count');
@@ -174,4 +187,4 @@
         </script>
 </body>
 
-</html>
+</html
