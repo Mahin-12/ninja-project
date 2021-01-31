@@ -29,7 +29,7 @@
 
     <!--Booking Section-->
     <main class="main-content container">
-        <div class="booking-form">
+        <div id="booking-area" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -52,25 +52,28 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input id="firstClass-count" class="inp-style inp-width" type="number" value="1">
+                    <input id="firstClass-count" class="inp-style inp-width" type="number" value="0">
                 </div>
+                <!-- adding plus minus btn for firstClass section -->
                 <div class="plus-minus-btn">
-                    <button id="firstClass-plusBtn">+</button>
-                    <button id="firstClass-minusBtn">-</button>
+                    <button id="firstClass-plusBtn" class="btn">+</button>
+                    <button id="firstClass-minusBtn" class="btn">-</button>
                 </div>
             </div>
 
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input id="economy-count" class="inp-style inp-width" type="number" value="1">
+                    <input id="economy-count" class="inp-style inp-width" type="number" value="0">
                 </div>
-                <!-- working now -->
+                <!-- adding plus minus btn for ecomnomy section -->
                 <div class="plus-minus-btn">
-                    <button id="economy-plusBtn">+</button>
-                    <button id="economy-minusBtn">-</button>
+                    <button id="economy-plusBtn" class="btn">+</button>
+                    <button id="economy-minusBtn" class="btn">-</button>
                 </div>
             </div>
+
+            <!-- total amount of tickets by calculating vat and total amount -->
             <div class="calculations">
                 <div class="amount">
                     <div class="left">
@@ -86,7 +89,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <h5 id="vat-total">$50</h5>
                     </div>
                 </div>
                 <hr>
@@ -95,12 +98,29 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <h5 id="total-amount">$550</h5>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="bookingBtn" class="btn-style">Book Now</button>
         </div>
+
+        <!-- booking area -->
+        <div id="bookingdone-area">
+            <h1 id="bookstyle">Booking done</h1>
+        </div>
+        <script>
+            const bookBtn = document.getElementById('bookingBtn');
+            bookBtn.addEventListener('click', function () {
+                const bookingArea = document.getElementById('booking-area');
+                bookingArea.style.display = "none";
+                const bookingArea2 = document.getElementById("bookingdone-area");
+                bookingArea2.style.display = "block";
+
+            });
+
+        </script>
+
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
@@ -110,6 +130,8 @@
         </div>
         </section>
         <script>
+
+            // for firstClass btn-part and adding the amount.
             document.getElementById('firstClass-plusBtn').addEventListener('click', function () {
                 handleFirstClassChange(true);
             });
@@ -132,8 +154,8 @@
                 firstClassInput.value = firstClassNewCount;
                 calculateTotal();
             }
-        
 
+            // for economy btn-part and adding the amount.
             document.getElementById('economy-plusBtn').addEventListener('click', function () {
                 handleProductChange(true);
             });
@@ -156,8 +178,10 @@
                 economyInput.value = economyNewCount;
                 calculateTotal();
             }
-         
-              function calculateTotal(){
+
+
+            //adding the total value od economy-tickets and fristClass-tickets also claculating 10% vat and show the total amount.
+            function calculateTotal() {
                 const firstClassInput = document.getElementById('firstClass-count');
                 const firstClassCount = parseInt(firstClassInput.value);
 
@@ -165,25 +189,17 @@
                 const economyCount = parseInt(economyInput.value);
 
                 const totalPrice = (firstClassCount * 150) + (economyCount * 100);
-                document.getElementById('total-price').innerText =  totalPrice;
+                document.getElementById('total-price').innerText = totalPrice;
+
+                const vat = totalPrice * 0.1;
+                document.getElementById('vat-total').innerText = vat;
+
+                const totalAmount = totalPrice + vat;
+                document.getElementById('total-amount').innerText = totalAmount;
 
 
-                  
-              }
 
-            // document.getElementById('economy-plusBtn').addEventListener('click', function () {
-            //     const economyInput = document.getElementById('economy-count');
-            //     const economyCount = parseInt(economyInput.value);
-            //     const economyNewCount = economyCount + 1;
-            //     economyInput.value = economyNewCount;
-            // });
-
-            // document.getElementById('economy-minusBtn').addEventListener('click', function () {
-            //     const economyInput = document.getElementById('economy-count');
-            //     const economyCount = parseInt(economyInput.value);
-            //     const economyNewCount = economyCount - 1;
-            //     economyInput.value = economyNewCount;
-            // });
+            }
         </script>
 </body>
 
